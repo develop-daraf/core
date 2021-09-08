@@ -125,15 +125,12 @@ def _async_validate_price_entity(
         return
 
     try:
-        value: float | None = float(state.state)
+        float(state.state)
     except ValueError:
         result.append(
             ValidationIssue("entity_state_non_numeric", entity_id, state.state)
         )
         return
-
-    if value is not None and value < 0:
-        result.append(ValidationIssue("entity_negative_state", entity_id, value))
 
     unit = state.attributes.get("unit_of_measurement")
 
